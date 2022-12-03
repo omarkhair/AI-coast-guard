@@ -123,6 +123,9 @@ public class CoastGuardState implements Cloneable {
 
     @Override
     public String toString(){
-        return pos.toString() + "," + passengerOnBoard + ";" + ships.toString();
+        StringBuilder sb = new StringBuilder();
+        for(Ship ship: ships.values())
+            sb.append(ship.toString()+";");
+        return pos.toString() + "," + passengerOnBoard + ";" + sb.toString();
     }
 }

@@ -2,10 +2,8 @@ package code;
 
 import code.datastructure.*;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -85,7 +83,7 @@ public class CoastGuard extends Problem<CoastGuardState> {
         if (solution == null)
             return "";
         String actions = coastGardProblem.backtrack(solution);
-
+//        System.out.println(coastGardProblem.traceSolution(solution));
         return actions.substring(1) + ";" + solution.state.deadPassengers + ";" + solution.state.retrivedBoxes + ";" + gs.expandedNodesCount;
     }
 
@@ -93,6 +91,12 @@ public class CoastGuard extends Problem<CoastGuardState> {
         if(node.parent == null)
             return "";
         return backtrack(node.parent) + "," + node.action;
+    }
+
+    private String traceSolution(Node<CoastGuardState> node){
+        if(node.parent == null)
+            return "";
+        return traceSolution(node.parent) + "\n" + node.action+" " +node.toString();
     }
 
     public static String GenGrid() {
@@ -278,8 +282,25 @@ public class CoastGuard extends Problem<CoastGuardState> {
         return operations;
     }
 
-    public static void main(String[] args) {
+    public static void genDuplicate(){
+        String strProb = "2,2;50;0,0;0,1;1,1,50";
+        CoastGuard p = parse(strProb);
+        Node<CoastGuardState> n = new CoastGuardNode(p.initialState);
+        System.out.println(p.initialState);
+        System.out.println(n.state);
+        Node<CoastGuardState> n2 = p.moveOperation(p.moveOperation(n, (s) -> s.pos.second += 1, "right"),
+                (s) ->s.pos.first += 1, "down");
+        Node<CoastGuardState> n3 = p.moveOperation(p.moveOperation(n, (s) -> s.pos.first += 1, "down"),
+                (s) ->s.pos.second += 1, "right");
+        System.out.println(n2.state.toString() + n2.hashCode());
+        System.out.println(n3.state.toString() + n3.hashCode());
+        System.out.println(solve(strProb, "BF", false));
 
+    }
+
+
+    public static void main(String[] args) {
+        
         // CoastGuard.CoastGuardCapacity = 30;
         // CoastGuardState.gridW = 3;
         // CoastGuardState.gridH = 3;

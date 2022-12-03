@@ -28,8 +28,8 @@ public class CoastGuardNode extends Node<CoastGuardState>{
         return lost;
     }
 
-    @Override
-    public String toString(){
-        return ""+Math.abs(this.hashCode()) + "_" + this.state.toString() + "_C"+this.pathCost;
-    }
+//    @Override
+//    public String toString(){
+//        return ""+Math.abs(this.hashCode()) + "_" + this.state.toString() + "_C"+this.pathCost;
+//    }
 }
