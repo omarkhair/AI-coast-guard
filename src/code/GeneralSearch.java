@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 public class GeneralSearch<T> {
 
-    public HashSet<Node<T>> memo;
+    public HashSet<Node> memo;
     public static int MaxDepth = -1;
     public int expandedNodesCount = 0;
 
@@ -25,9 +25,6 @@ public class GeneralSearch<T> {
             Node<T> node = queue.removeFront();
             node.mark_expanded();
             expandedNodesCount ++;
-            // to remove dublicates
-            memo.add(node);
-//            System.out.println(node.depth);
 
             if (p.isGoal(node)) return node;
 
@@ -39,7 +36,7 @@ public class GeneralSearch<T> {
                     continue;
                 }
                 newNode.depth = node.depth + 1;
-
+                memo.add(newNode);
                 queue.add(newNode);
             }
         }

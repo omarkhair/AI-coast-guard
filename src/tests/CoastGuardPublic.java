@@ -28,7 +28,7 @@ public class CoastGuardPublic {
     String grid10= "10,6;59;1,7;0,0,2,2,3,0,5,3;1,3,69,3,4,80,4,7,94,4,9,14,5,2,39;";
 
 
-    @Test(timeout = 100000)
+    @Test(timeout = 10000)
     public void testa0() throws Exception {
         String solution = CoastGuard.solve(grid0, "BF", false);
         solution = solution.replace(" ", "");
@@ -44,7 +44,7 @@ public class CoastGuardPublic {
 
     @Test(timeout = 10000)
     public void testa2() throws Exception {
-        String solution = CoastGuard.solve(grid2, "BF", true);
+        String solution = CoastGuard.solve(grid2, "BF", false);
         assertTrue("The output actions do not lead to a goal state.", applyPlan(grid2, solution));
     }
     @Test(timeout = 10000)
@@ -168,7 +168,7 @@ public class CoastGuardPublic {
     }
     @Test(timeout = 10000)
     public void testc3() throws Exception {
-        String solution = CoastGuard.solve(grid3, "UC", false);
+        String solution = CoastGuard.solve(grid3, "UC", true);
         assertTrue("The output actions do not lead to a goal state.", applyPlan(grid3, solution));
     }
 
@@ -434,7 +434,6 @@ public class CoastGuardPublic {
     public void testh0() throws Exception {
         String solution = CoastGuard.solve(grid0, "AS2", false);
         solution = solution.replace(" ", "");
-        System.out.println(solution);
         assertTrue("The output actions do not lead to a goal state.", applyPlan(grid0, solution));
     }
 
@@ -442,7 +441,6 @@ public class CoastGuardPublic {
     public void testh1() throws Exception {
         String solution = CoastGuard.solve(grid1, "AS2", false);
         solution = solution.replace(" ", "");
-        System.out.println(solution);
         assertTrue("The output actions do not lead to a goal state.", applyPlan(grid1, solution));
     }
 
@@ -532,11 +530,15 @@ public class CoastGuardPublic {
                 mn();
                 return false;
             }
+            if(ss.get(x00+","+x01)<0) {
+                mn();
+                return false;
+            }
             byte ts = ss.get(x00+","+x01);
             byte cc = (byte) (xc-cp);
             if(cc>=ts) {
                 cp+=ts;
-                ss.replace(x00+","+x01, (byte)-100);
+                ss.replace(x00+","+x01, (byte)-20);
             }
             else {
                 cp=xc;
@@ -563,10 +565,13 @@ public class CoastGuardPublic {
                 mn();
                 return false;
             }
-            r+=1;
-            ss.replace(x00+","+x01,(byte)0);
-            mn();
-            return true;
+            if(ss.get(x00+","+x01)<0 && ss.get(x00+","+x01)>-20) {
+
+                r+=1;
+                ss.replace(x00+","+x01,(byte)0);
+                mn();
+                return true;}
+            return false;
 
         }
         boolean f99(int i, int j) {
@@ -579,7 +584,7 @@ public class CoastGuardPublic {
             for (String k : ss.keySet()) {
                 byte v = ss.get(k);
                 if (v<=(byte)-1 && v>=(byte)-20) v++;else {
-                    if (v==1) {v=(byte)-20;d++;}
+                    if (v==1) {v=(byte)-19;d++;}
                     else {
                         if
                         (v>(byte)1) { v--; d++;}}
@@ -674,12 +679,15 @@ public class CoastGuardPublic {
                 default: linkin = false; break;
 
             }
-
-            if(!linkin)
+            if(!linkin) {
+                System.out.println("action that failed "+actions[i]);
                 return false;
+            }
         }
+
 
         return s.cool() && s.d==blue && s.r==doors;
     }
 }
+
 
