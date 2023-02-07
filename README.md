@@ -1,8 +1,8 @@
 ## Generic framework to solve AI search problem
 
-- implemented as part of the Artificial Intelligence course at the GUC.
-- supports an example of the framework to solve __Coast Guard Problem__.
-- for elaborated description and discussion of implementation methodology, [read project docs](docs/AI_Project_1_Report.pdf).
+- Implemented as part of the Artificial Intelligence course at the GUC.
+- Supports an example of the framework to solve __Coast Guard Problem__.
+- For elaborated description and discussion of implementation methodology, [read project docs](docs/AI_Project_1_Report.pdf).
 
 ## Coast Guard Problem Description
 You are a member of the coast guard force in charge of a rescue
@@ -63,11 +63,12 @@ retrieve as many black boxes as possible.
         (up, down, left, right) within the grid boundaries.
   
 ## Algorithms Implemented
-1. Breadth-first search.
-2. Depth-first search.
-3. Iterative deepening search.
-4. Greedy search with at least two heuristics.
-5. A∗ search with at least two admissible heuristics.
+- Breadth-first search.
+- Depth-first search.
+- Iterative deepening search.
+- Uniform cost search.
+- Greedy search with two heuristics.
+- A∗ search with two admissible heuristics.
 
 
 ## Implemented by team.
